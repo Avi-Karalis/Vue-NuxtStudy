@@ -1,22 +1,31 @@
 <template>
     <div>
-        /products/:id
-        <h2>Product details for {{ id }}</h2>
-        <p>{{ product.title }}</p>
-        <p>{{ product.price }} €</p>
-        <p>{{ product.id }}</p>
-        <p>{{ product.description }}</p>
+        <Head>
+            <Title>Nuxt Store | {{ product.title }}</Title>
+            <Meta name="description" :content="product.description"/>
+        </Head>
+        <ProductDetails :product="product"  />
     </div>
 </template>
 
 <script setup>
+import ProductDetails from '~/components/ProductDetails.vue';
+
 const {id} = useRoute().params ;
 const uri = 'https://fakestoreapi.com/products/' + id;
 // fetch product
 const {data: product} = await useFetch(uri, {key: id});
+
+if (!product.value) {
+    throw createError({statusCode: 404,
+        statusMessage: 'Product Not Found',
+    fatal: true});
+}
 definePageMeta({
     layout: 'products'
 });
+
+
 </script>
 
 <style scoped>

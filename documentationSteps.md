@@ -4,7 +4,7 @@
 - scaffold a project
   - ```npx nuxi init <app>```
 
-- ensure all dependences are installed
+- ensure all dependencies are installed
   - ``` npm i ```
 
 - Can run the scaffolded app by typing
